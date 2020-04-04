@@ -1,0 +1,193 @@
+/*Обнуление*/
+*, 
+*:before, 
+*:after {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	box-sizing: border-box;
+}
+
+html, 
+body {
+	height: 100%;
+	font-family: "Arial MT", Helvetica, sans-serif;
+}
+@media (max-width: 768px) {
+	body.lock {
+		overflow: hidden; /*позволяет избежать случайной прокрутки страницы в то время, пока открыто меню*/
+	}
+}
+
+.container {
+	max-width: 1180px;
+	margin: 0 auto;
+	padding: 0 10px;
+}
+
+.header {
+	position: fixed; /*с этим значением header всегда будет "прикручен" к верху страницы даже при прокрутке*/
+	width: 100%;
+	left: 0;
+	top: 0;
+	z-index: 10; /*большое значение z-index'а гарантирует, что элемент будет отображаться "выше" остальных элементов*/
+}
+.header:before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #5e5373;
+	z-index: 3; /*для того, чтобы меню в адаптивном варианте не перекрывало шапку*/
+}
+.header__body {
+	position: relative;
+	/*z-index: 2; было нужно на начальном этапе верстки, чтобы видеть элементы шапки; при верстке адаптивности становится не нужным и заменяется z-index'ами в соответствующих элементах шапки*/
+	display: flex;
+	justify-content: space-between;
+	height: 80px;
+	align-items: center;
+}
+@media (max-width: 768px) {
+	.header__body {
+		height: 50px;
+	}
+}
+
+.header__logo {
+	flex: 0 0 60px;
+	border-radius: 50%;
+	overflow: hidden; /*закругляем картинку*/
+	position: relative;
+	z-index: 5;
+}
+@media (max-width: 768px) {
+	.header__logo {
+		flex: 0 0 40px;
+	}
+}
+.header__logo img {
+	max-width: 100%; /*на случай, если картинка будет больше контейнера*/
+	display: block; /*"боремся" с отступом у картинки снизу*/
+}
+.header__burger {
+	display: none;
+}
+@media (max-width: 768px) {
+	.header__burger {
+		display: block;
+		position: relative;
+		width: 30px;
+		height: 20px;
+		z-index: 5;
+	}
+	.header__burger span {
+		background-color: #fff;
+		position: absolute;
+		width: 100%;
+		height: 2px;
+		left: 0; /*создаем среднюю часть бургера*/
+		top: 9px; /*расставляем части бургера по вертикали*/
+		transition: all 0.3s ease 0s;
+	}
+	.header__burger:before,
+	.header__burger:after {
+		content: '';
+		background-color: #fff;
+		position: absolute;
+		width: 100%;
+		height: 2px;
+		left: 0; /*создаем верхнюю и нижнюю часть бургера*/
+		transition: all 0.3s ease 0s;
+	}
+	.header__burger:before {
+		top: 0; /*расставляем части бургера по вертикали*/
+	}
+	.header__burger:after {
+		bottom: 0; /*расставляем части бургера по вертикали*/
+	}
+	.header__burger.active:before {
+		transform: rotate(45deg);
+		top: 9px; /*изменяем бургер на крестик*/
+	}
+	.header__burger.active:after {
+		transform: rotate(-45deg);
+		bottom: 9px; /*изменяем бургер на крестик*/
+	}
+	.header__burger.active span {
+		transform: scale(0); /*изменяем бургер на крестик*/
+	}
+
+	.header__menu {
+		position: fixed;
+		top: -100%; /*скрываем меню*/
+		left: 0;
+		width: 100%;
+		height: 100%;
+		overflow: auto; /*на тот случай, если пункты меню не поместятся на экране*/
+		background-color: #18b5a4;
+		padding: 70px 10px 20px 10px;
+		transition: all 0.3s ease 0s;
+	}
+	.header__menu.active {
+		top: 0;
+	}
+}
+
+.header__list {
+	display: flex;
+	list-style: none;
+	position: relative;
+	z-index: 5;
+}
+@media (max-width: 768px) {
+	.header__list {
+		display: block;
+	}
+}
+
+.header__list li {
+	margin: 0 0 0 20px;
+}
+@media (max-width: 768px) {
+	.header__list li {
+		margin: 0 0 20px 0;
+		padding: 0 0 20px 0;
+		border-bottom: 2px solid #fff;
+	}
+}
+
+.header__link {
+	color: #fff;
+	text-transform: uppercase;
+	font-size: 18px;
+	text-decoration: none;
+}
+@media (max-width: 768px) {
+	.header__link {
+		font-size: 24px;
+	}
+}
+.header__link:hover {
+	color: #fff;
+	opacity: 0.5;
+	text-decoration: underline;
+}
+
+.content {
+	padding: 100px 0 0 0; /*добавляем отступ сверху, чтобы шапка не закрывала контент*/
+}
+@media (max-width: 768px) {
+	.content {
+		padding: 70px 0 0 0;
+	}
+}
+.content__text {
+	font-size: 18px;
+	line-height: 25px;
+}
+.content__text p {
+	margin: 0 0 20px 0;
+}
